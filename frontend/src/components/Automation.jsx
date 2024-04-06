@@ -1,11 +1,11 @@
 import React from 'react'
 
-function Explorer() {
+function Automation() {
   return (
     <div>
-      Explorer
+      
     </div>
   )
 }
 
-export default Explorer
+export default Automation
