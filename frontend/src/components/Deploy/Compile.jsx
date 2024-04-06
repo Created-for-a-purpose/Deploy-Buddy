@@ -4,10 +4,16 @@ import { useState } from 'react';
 
 function Compile() {
   const [contractCode, setContractCode] = useState('');
+  const [saltValue,setSaltValue]=useState('');
 
   const handleChange = (e) => {
     setContractCode(e.target.value);
   };
+
+  const handleSaltChange = (e) => {
+    setSaltValue(e.target.value);
+  };
+
 
   return (
     <div className='mt-[120px] flex justify-center item-center'>
@@ -24,6 +30,13 @@ function Compile() {
             onChange={handleChange}
           />
         </form>
+
+        <p className='mt-[25px]'>Enter the salt value</p>
+        <input type='number' placeholder="Enter sale value"
+        value={saltValue}
+            onChange={handleSaltChange}
+            className='w-2/3 p-2 mt-2 border border-gray-300 rounded'
+             />
 
         <div className='mt-[20px] mb-[25px]'>
           <p>Initialize constructor params</p>
