@@ -25,8 +25,12 @@ function Compile() {
   ></textarea>
 </form>
 
-<div>
+<div className='mt-[20px] mb-[25px]'>
 <p>Click on the initialise button to start</p>
+
+<button className='border border-2 px-[10px] py-[5px] font-medium text-lg'>Initialize</button>
+<p className='mt-[25px]'>Click below to compile</p>
+<button className='border border-2 py-[5px] font-medium text-lg w-2/3'>Compile</button>
 </div>
 
     </div>
