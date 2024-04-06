@@ -24,7 +24,7 @@ function Navbar() {
             </li>
           </ul>
         </div>
-        <ConnectButton chainStatus={'icon'} showBalance={false} />
+        <ConnectButton chainStatus={'none'} showBalance={false} />
       </div>
     </navbar>
   );
