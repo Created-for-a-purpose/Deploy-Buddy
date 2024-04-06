@@ -1,10 +1,12 @@
 import { createClient } from "viem"
-import { optimismSepolia, arbitrumSepolia, polygonAmoy } from "viem/chains"
+import { sepolia, optimismSepolia, arbitrumSepolia, polygonAmoy } from "viem/chains"
 import { bundlerActions } from "permissionless"
 import { pimlicoBundlerActions, pimlicoPaymasterActions } from "permissionless/actions/pimlico"
 
 export const getChainName = (chain) => {
-    if (chain === optimismSepolia)
+    if (chain === sepolia)
+        return 'sepolia'
+    else if (chain === optimismSepolia)
         return 'optimism-sepolia'
     else if (chain === arbitrumSepolia)
         return 'arbitrum-sepolia'
