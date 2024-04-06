@@ -10,6 +10,7 @@ import Home from './components/Home.jsx'
 import Navbar from './components/Navbar.jsx'
 import Explorer from './components/Explorer.jsx'
 import Deploy from './components/Deploy/Deploy.jsx'
+import ContractDetails from './components/Deploy/ContractDetails.jsx'
 
 
 const router=createBrowserRouter(
@@ -17,6 +18,7 @@ const router=createBrowserRouter(
     <Route>
     <Route path='/' element={<Home/>}/>
     <Route path='/deploy' element={<Deploy/>}/>
+    <Route path='/contract-details' element={<ContractDetails/>}/>
     <Route path='/explorer' element={<Explorer/>}/>
     </Route>
   )

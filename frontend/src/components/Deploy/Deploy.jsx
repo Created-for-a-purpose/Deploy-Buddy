@@ -1,6 +1,6 @@
 import React from 'react'
 import ContractDetails from './ContractDetails';
-import { Link } from 'react-router-dom';
+
 
 function Deploy() {
   return (
@@ -51,22 +51,12 @@ function Deploy() {
 
     <button className='mt-[25px] mb-[25px] border border-blue-300 px-[25px] py-[10px]
     text-xl font-semibold'>
-    <Link to={ContractDetails}>Get started</Link>
+    <a href='/contract-details'>Get Details</a>
     </button>
 
      </div>
 
     </div>
-
-
-
-    // <div className='mt-[120px] flex justify-center item-center'>
-
-    // <div className='border border-red-100 w-2/3 '>
-    // <h1 className='mt-[25px]'>Enter Contract Details</h1>
-    // </div>
-    
-    // </div>
   )
 }
 

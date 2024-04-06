@@ -19,16 +19,16 @@ function Navbar() {
             <a href='/'>Home</a>
             </li>
             <li>
-            <a href='/deploy'>Deploy</a>
+            <a href='/deploy'>CCIP</a>
             </li>
             <li>
-            <a href='/explorer'>Explorer</a>
+            <a href='/explorer'>Automation</a>
             </li>
           </ul>
         </div>
 
         <p className='font-medium bg-slate-300 border border-xl px-[10px] py-[10px] rounded-xl'>
-        <a href='/deploy'>Get started -&gt;</a></p>
+        <a href='/deploy'>Get started --&gt;</a></p>
       </div>
     </navbar>
   );
