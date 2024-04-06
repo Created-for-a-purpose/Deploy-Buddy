@@ -24,9 +24,9 @@ import {
 import { WagmiProvider } from 'wagmi';
 import {
   sepolia,
-  optimismGoerli,
-  arbitrumGoerli,
-  polygonMumbai,
+  optimismSepolia,
+  arbitrumSepolia,
+  polygonAmoy,
 } from 'wagmi/chains';
 import {
   QueryClientProvider,
@@ -36,7 +36,7 @@ import {
 const config = getDefaultConfig({
   appName: 'My RainbowKit App',
   projectId: 'e7fa7d19fd057ecd9403a0e89bd62b8b',
-  chains: [sepolia, optimismGoerli, arbitrumGoerli, polygonMumbai],
+  chains: [sepolia, optimismSepolia, arbitrumSepolia, polygonAmoy],
   ssr: false
 });
 
