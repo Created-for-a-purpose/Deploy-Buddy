@@ -32,7 +32,7 @@ function Compile() {
         </form>
 
         <p className='mt-[25px]'>Enter the salt value</p>
-        <input type='number' placeholder="Enter sale value"
+        <input type='number' placeholder="Enter salt value"
         value={saltValue}
             onChange={handleSaltChange}
             className='w-2/3 p-2 mt-2 border border-gray-300 rounded'

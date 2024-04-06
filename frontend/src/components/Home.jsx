@@ -29,7 +29,7 @@ function Home() {
               <p className='text-xl  mt-[30px]'> Deploy your smart contracts under a <b>single address</b> on <b>multiple chains,</b> completely <b>gasless!</b></p>
               <button className='mt-[20px] bg-slate-300 border rounded-xl px-[15px]
      py-[15px] font-semibold text-xl'>
-                <a href='/deploy'>Crosschain --&gt;</a></button>
+                <a href='/deploy'>CCIP --&gt;</a></button>
             </div>
             <div>
               <img className="h-[300px] w-[500px] border rounded-tr-3xl rounded-bl-3xl shadow-lg ml-[60px]

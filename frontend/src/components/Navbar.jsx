@@ -14,7 +14,7 @@ function Navbar() {
               <a href='/'>Home</a>
             </li>
             <li>
-              <a href='/contract-details'>Crosschain</a>
+              <a href='/contract-details'>CCIP</a>
             </li>
             <li>
               <a href='/vrf'>VRF</a>

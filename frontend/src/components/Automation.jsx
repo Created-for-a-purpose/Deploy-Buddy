@@ -4,7 +4,7 @@ function Automation() {
   const [selectedOption, setSelectedOption] = useState('');
   const [formData, setFormData] = useState({
     upkeepName: '',
-    adminAddress: '',
+    contractAddress: '',
     gasLimit: '',
     startingBalance: ''
   });
@@ -40,7 +40,7 @@ function Automation() {
               checked={selectedOption === 'custom'}
               onChange={handleOptionChange}
             />{' '}
-            Custom logic
+            Conditional
           </label>
         </div>
 
@@ -68,11 +68,11 @@ function Automation() {
             />
           </div>
           <div className="mb-4">
-            <label className="block">Admin Address:</label>
+            <label className="block">Contract Address:</label>
             <input
               type='text'
-              name='adminAddress'
-              value={formData.adminAddress}
+              name='contractAddress'
+              value={formData.contractAddress}
               onChange={handleChange}
               className="border border-gray-400 rounded-md p-2"
             />
