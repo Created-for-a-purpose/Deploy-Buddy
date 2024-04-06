@@ -9,7 +9,7 @@ import Home from './components/Home.jsx'
 
 import Navbar from './components/Navbar.jsx'
 import Explorer from './components/Explorer.jsx'
-import Deploy from './components/Deploy.jsx'
+import Deploy from './components/Deploy/Deploy.jsx'
 
 
 const router=createBrowserRouter(
