@@ -45,8 +45,7 @@ function ContractDetails() {
 
           <div className='flex justify-between mb-[25px]'>
           <button className='border border-2 px-[10px] text-lg font-medium ml-[15px]'><a href='/deploy'>Back</a></button>
-          <button type="submit" className="bg-blue-500 text-white px-4 py-2 rounded-md font-semibold">Submit</button>
-          <button className='border border-2 px-[10px] text-lg font-medium mr-[15px]'><a >Next</a></button>
+          <button type="submit" className="bg-blue-500 text-white px-4 py-2 rounded-md font-semibold mr-[15px]"><a href='/select-chain'>Next</a></button>
           </div>
         
           </form>
