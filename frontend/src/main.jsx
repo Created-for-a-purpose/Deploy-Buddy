@@ -9,7 +9,7 @@ import Home from './components/Home.jsx'
 
 import Navbar from './components/Navbar.jsx'
 import Automation from './components/Automation'
-import Deploy from './components/Deploy/Deploy.jsx'
+import VRF from './components/VRF'
 import ContractDetails from './components/Deploy/ContractDetails.jsx'
 import SelectChain from './components/Deploy/SelectChain.jsx'
 import Compile from './components/Deploy/Compile.jsx'
@@ -23,11 +23,6 @@ import {
 } from '@rainbow-me/rainbowkit';
 import { WagmiProvider } from 'wagmi';
 import {
-  mainnet,
-  polygon,
-  optimism,
-  arbitrum,
-  base,
   sepolia,
   optimismGoerli,
   arbitrumGoerli,
@@ -49,10 +44,10 @@ const router = createBrowserRouter(
   createRoutesFromElements(
     <Route>
       <Route path='/' element={<Home />} />
-      <Route path='/deploy' element={<Deploy />} />
       <Route path='/contract-details' element={<ContractDetails />} />
       <Route path='/select-chain' element={<SelectChain />} />
       <Route path='/automation' element={<Automation />} />
+      <Route path='/vrf' element={<VRF />} />
       <Route path='/compile' element={<Compile />} />
     </Route>
   )
