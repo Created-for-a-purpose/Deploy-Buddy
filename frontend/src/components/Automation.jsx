@@ -1,6 +1,12 @@
 import React, { useState } from 'react';
+import { useAccount, usePublicClient, useWalletClient, useChainId, useChains } from 'wagmi';
+import { encodeFunctionData } from 'viem';
+import { automationAbi, automationAddress } from '../constants';
+import { sendTx } from './pimlico/sendTx';
+import { isSmartAccountDeployed } from 'permissionless';
 
 function Automation() {
+  const { address } = useAccount()
   const [selectedOption, setSelectedOption] = useState('');
   const [formData, setFormData] = useState({
     upkeepName: '',
@@ -8,6 +14,15 @@ function Automation() {
     gasLimit: '',
     startingBalance: ''
   });
+
+  const publicClient = usePublicClient()
+  const { data: walletClient } = useWalletClient()
+  const chainId = useChainId()
+  const chains = useChains()
+
+  const getChain = () => {
+    return chains.find((chain) => chain.id === chainId);
+  }
 
   const handleOptionChange = (event) => {
     setSelectedOption(event.target.value);
@@ -20,10 +35,32 @@ function Automation() {
     });
   };
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    // Handle form submission logic here
-    console.log(formData);
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const regParams = {
+      name: formData.upkeepName,
+      encryptedEmail: '0x',
+      upkeepContract: formData.contractAddress,
+      gasLimit: formData.gasLimit,
+      adminAddress: address,
+      triggerType: selectedOption,
+      checkData: '0x',
+      triggerConfig: '0x',
+      offchainConfig: '0x',
+      amount: formData.startingBalance
+    }
+    const data = encodeFunctionData({
+      abi: automationAbi,
+      args: [regParams]
+    })
+    const txParams = {
+      to: automationAddress,
+      data,
+      value: 0
+    }
+
+    const hash = await sendTx(publicClient, walletClient, txParams, getChain())
+    console.log(hash)
   };
 
   return (
@@ -36,8 +73,8 @@ function Automation() {
           <label>
             <input
               type='radio'
-              value='custom'
-              checked={selectedOption === 'custom'}
+              value={0}
+              checked={selectedOption == 0}
               onChange={handleOptionChange}
             />{' '}
             Conditional
@@ -48,8 +85,8 @@ function Automation() {
           <label>
             <input
               type='radio'
-              value='log'
-              checked={selectedOption === 'log'}
+              value={1}
+              checked={selectedOption == 1}
               onChange={handleOptionChange}
             />{' '}
             Log trigger

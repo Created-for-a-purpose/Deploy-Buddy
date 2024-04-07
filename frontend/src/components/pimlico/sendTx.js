@@ -1,12 +1,14 @@
-import { getSenderAddress } from "permissionless"
+import { sponsorUserOperation } from "permissionless/actions/pimlico"
+import { getSenderAddress, sendUserOperation, waitForUserOperationReceipt } from "permissionless"
 import { generateInitCode } from "./getInitCode"
 import { encodeFunctionData } from "viem"
 import { buildUserOperation } from "./buildUserOp"
 import { getClients } from "./getClients"
 import { signUserOperation } from "./signUserOp"
+import { isSmartAccountDeployed } from "permissionless"
 
+const entryPoint = "0x5FF137D4b0FDCD49DcA30c7CF57E578a026d2789"
 const factoryAddress = "0x9406Cc6185a346906296840746125a0E44976454"
-const entryPointAddress = "0x5FF137D4b0FDCD49DcA30c7CF57E578a026d2789"
 
 const generateCallData = async (txParams) => {
     const callData = encodeFunctionData({
@@ -35,46 +37,51 @@ export const sendTx = async (
     txParams,
     chain
 ) => {
-    const [userAddress] = walletClient.getAddresses()
+    const userAddress = walletClient?.account?.address
     const initCode = generateInitCode(factoryAddress, userAddress)
-    const callData = generateCallData(txParams)
-    const sender = await getSenderAddress(initCode, entryPointAddress)
+    const sender = await getSenderAddress(publicClient, {
+        initCode,
+        entryPoint,
+    })
+    const callData = await generateCallData(txParams)
     const { bundlerClient, paymasterClient } = await getClients(chain)
-
-    const userOperation = await buildUserOperation(
+    
+    const userOperation = await buildUserOperation({
         sender,
-        entryPointAddress,
+        entryPoint,
         initCode,
         callData,
         bundlerClient,
         publicClient
-    )
+    })
 
-    const sponsorUserOperationResult = await paymasterClient.sponsorUserOperation({
+    const isAccountDeployed = await isSmartAccountDeployed(publicClient, sender);
+    if (isAccountDeployed) userOperation.initCode = '0x'
+    
+    const sponsorUserOperationResult = await sponsorUserOperation(paymasterClient, {
         userOperation,
-        entryPoint: entryPointAddress
+        entryPoint
     })
     const sponsoredUserOperation = {
         ...userOperation,
-        preVerificationGas: sponsorUserOperationResult.preVerificationGas,
-        verificationGasLimit: sponsorUserOperationResult.verificationGasLimit,
-        callGasLimit: sponsorUserOperationResult.callGasLimit,
-        paymasterAndData: sponsorUserOperationResult.paymasterAndData
+        ...sponsorUserOperationResult
     }
     const signature = await signUserOperation(
         walletClient,
-        sponsorUserOperationResult,
-        chain.id,
-        entryPointAddress
+        sponsoredUserOperation,
+        entryPoint,
+        chain.id
     )
     sponsoredUserOperation.signature = signature;
 
-    const userOperationHash = await bundlerClient.sendUserOperation({
+    const userOperationHash = await sendUserOperation(bundlerClient, {
         userOperation: sponsoredUserOperation,
-        entryPoint: entryPointAddress
+        entryPoint
     })
 
-    const receipt = await bundlerClient.waitForUserOperationReceipt({ hash: userOperationHash })
+    const receipt = await waitForUserOperationReceipt(bundlerClient, {
+        hash: userOperationHash
+    })
 
     const txHash = receipt.receipt.transactionHash
     return txHash

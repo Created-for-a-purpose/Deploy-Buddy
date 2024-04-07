@@ -5,13 +5,17 @@ export const generateInitCode = (factoryAddress, userAddress) => {
         factoryAddress,
         encodeFunctionData({
             abi: [{
-                inputs: [{ name: "owner", type: "address" }, { name: "salt", type: "uint256" }],
-                name: "createAccount",
-                outputs: [{ name: "ret", type: "address" }],
-                stateMutability: "nonpayable",
-                type: "function",
+                type: 'function',
+                inputs: [
+                    { name: 'owner', internalType: 'address', type: 'address' },
+                    { name: 'salt', internalType: 'uint256', type: 'uint256' },
+                ],
+                name: 'createAccount',
+                outputs: [
+                    { name: 'ret', internalType: 'contract SimpleAccount', type: 'address' },
+                ],
+                stateMutability: 'nonpayable',
             }],
-            functionName: 'createAccount',
             args: [userAddress, 0n],
         }),
     ])

@@ -1,16 +1,21 @@
-import { signUserOperationHashWithECDSA } from "permissionless"
+import { getUserOperationHash, signUserOperationHashWithECDSA } from "permissionless"
+import { signMessage } from "viem/actions"
 
 export const signUserOperation = async (
     walletClient,
     userOperation,
-    entryPointAddress,
+    entryPoint,
     chainId
 ) => {
-    const signature = await signUserOperationHashWithECDSA({
-        client: walletClient,
-        userOperation: userOperation,
-        chainId: chainId,
-        entryPoint: entryPointAddress,
+    const userOperationHash = getUserOperationHash({
+        userOperation,
+        chainId,
+        entryPoint,
+    })
+    const signature = await signMessage(walletClient, {
+        message: {
+            raw: userOperationHash
+        }
     })
     return signature
 }
